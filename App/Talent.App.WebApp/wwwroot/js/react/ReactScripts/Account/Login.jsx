@@ -43,7 +43,7 @@ export default class LoginForm extends React.Component {
             }, () => { this.validateField(name, value) })
         }
     };
-    
+
     validateField(fieldName, value) {
         let fieldValidationErrors = this.state.formErrors;
         let emailValid = this.state.emailValid;
@@ -89,7 +89,7 @@ export default class LoginForm extends React.Component {
         }
 
         $.ajax({
-            url: 'http://localhost:60998/authentication/authentication/signin',
+            url: Identity_Url + 'authentication/authentication/signin',
             type: 'POST',
             data: JSON.stringify(loginModel),
             contentType: 'application/json',
@@ -101,7 +101,7 @@ export default class LoginForm extends React.Component {
                     this.setState({ isLoading: false });
                     TalentUtil.notification.show("Login Successfull", "success", null, null)
                     this.props.reload();
-                } 
+                }
                 else if (response.isSuccess && !response.isEmailVerified) {
                     TalentUtil.notification.show(response.message, "error", null, null);
                     this.setState({ isEmailVerified: response.isEmailVerified })
@@ -126,8 +126,8 @@ export default class LoginForm extends React.Component {
         return this.state.isLoading == true ? 'loading' : '';
     };
     render() {
-        let isEmailVerified = 
-            this.state.isEmailVerified  ? <div>
+        let isEmailVerified =
+            this.state.isEmailVerified ? <div>
                 <form className={`ui large form ${this.isFormValid()} ${this.isLoadingChange()}`} onSubmit={this.handleSubmit}>
                     <SingleInput
                         inputType="text"
@@ -169,10 +169,10 @@ export default class LoginForm extends React.Component {
                     </div>
                 </form>
             </div> :
-                <EmailVerification email={this.state.email} closeModal={this.props.closeModal}/>;
-        
+                <EmailVerification email={this.state.email} closeModal={this.props.closeModal} />;
+
         return (
-            <span>{ isEmailVerified }</span>
+            <span>{isEmailVerified}</span>
         );
     }
 }

@@ -26,6 +26,7 @@ export class IndividualDetailSection extends Component {
         this.saveContact = this.saveContact.bind(this)
         this.renderEdit = this.renderEdit.bind(this)
         this.renderDisplay = this.renderDisplay.bind(this)
+        this.checkValidation = this.checkValidation.bind(this)
     }
 
     openEdit() {
@@ -49,13 +50,36 @@ export class IndividualDetailSection extends Component {
             newContact: data
         })
     }
-
+    checkValidation() {
+        if ((this.state.newContact.firstName === "" || this.state.newContact.firstName === null) && (this.state.newContact.lastName === "" || this.state.newContact.lastName === null) && (this.state.newContact.phone === "" || this.state.newContact.phone === null) && (this.state.newContact.email === "" || this.state.newContact.email === null)) {
+            TalentUtil.notification.show("Please enter firstName,lastName,phone and email.", "error", null, null)
+            return false
+        }
+        else if ((this.state.newContact.firstName === "" || this.state.newContact.firstName === null)) {
+            TalentUtil.notification.show("Please enter firstName.", "error", null, null)
+            return false
+        }
+        else if ((this.state.newContact.lastName === "" || this.state.newContact.lastName === null)) {
+            TalentUtil.notification.show("Please enter lastName.", "error", null, null)
+            return false
+        } else if ((this.state.newContact.phone === "" || this.state.newContact.phone === null)) {
+            TalentUtil.notification.show("Please enter phone.", "error", null, null)
+            return false
+        } else if ((this.state.newContact.email === "" || this.state.newContact.email === null)) {
+            TalentUtil.notification.show("Please enter email.", "error", null, null)
+            return false
+        }
+        else {
+            return true
+        }
+    }
     saveContact() {
-        console.log(this.props.componentId)
-        console.log(this.state.newContact)
-        const data = Object.assign({}, this.state.newContact)
-        this.props.controlFunc(this.props.componentId, data)
-        this.closeEdit()
+        if (this.checkValidation()) {
+            const data = Object.assign({}, this.state.newContact)
+            this.props.controlFunc(this.props.componentId, data)
+            this.closeEdit()
+        }
+
     }
 
     render() {
@@ -248,7 +272,7 @@ export class CompanyDetailSection extends Component {
         let companyName = this.props.details ? this.props.details.name : ""
         let email = this.props.details ? this.props.details.email : ""
         let phone = this.props.details ? this.props.details.phone : ""
-        let location = {city:'',country:''}
+        let location = { city: '', country: '' }
         if (this.props.details && this.props.details.location) {
             location = this.props.details.location
         }

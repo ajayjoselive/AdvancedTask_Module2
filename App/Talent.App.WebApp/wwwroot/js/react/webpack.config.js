@@ -9,6 +9,12 @@ module.exports = {
         path: __dirname + "/dist",
         filename: "[name].bundle.js"
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            Talent_Url: JSON.stringify("https://ajaytalentstandardtask.azurewebsites.net/profile/"),
+            Identity_Url: JSON.stringify("https://ajaytalentstandardtask.azurewebsites.net/identity/")
+        })
+    ],
     watch: true,
     mode: 'development',
     module: {
