@@ -11,8 +11,8 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            Talent_Url: JSON.stringify("https://ajaytalentstandardtask.azurewebsites.net/profile/"),
-            Identity_Url: JSON.stringify("https://ajaytalentstandardtask.azurewebsites.net/identity/")
+            Talent_Url: JSON.stringify("https://talenttaskmodule2.azurewebsites.net/profile/"),
+            Identity_Url: JSON.stringify("https://talenttaskmodule2.azurewebsites.net/identity/")
         })
     ],
     watch: true,
